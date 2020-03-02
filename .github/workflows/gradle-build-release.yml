@@ -3,9 +3,11 @@ on:
   release:
     types: [created]
 jobs:
-  gradle:
+  release:
+    name: Publish for ${{ matrix.os }}
     strategy:
       matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
         include:
           - os: ubuntu-latest
             path: ./build/linux/releaseExecutable/kotlin-native-playground.kexe
