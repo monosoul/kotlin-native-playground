@@ -10,13 +10,13 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-latest]
         include:
           - os: ubuntu-latest
-            path: ./build/linux/releaseExecutable/kotlin-native-playground.kexe
+            path: build/bin/linux/releaseExecutable/kotlin-native-playground.kexe
             asset_name: hello-linux-amd64
           - os: windows-latest
-            path: .\build\windows\releaseExecutable\kotlin-native-playground.exe
+            path: build\bin\linux\releaseExecutable\kotlin-native-playground.exe
             asset_name: hello-windows-amd64
           - os: macos-latest
-            path: ./build/macos/releaseExecutable/kotlin-native-playground.kexe
+            path: build/bin/linux/releaseExecutable/kotlin-native-playground.kexe
             asset_name: hello-macos-amd64
     runs-on: ${{ matrix.os }}
     steps:
