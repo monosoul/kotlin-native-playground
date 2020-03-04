@@ -2,7 +2,7 @@ group = "com.github.monosoul"
 version = "0.0.1"
 
 plugins {
-    kotlin("multiplatform") version "1.3.61"
+    kotlin("multiplatform") version "1.3.70"
 }
 
 repositories {
@@ -10,33 +10,17 @@ repositories {
 }
 
 kotlin {
-    sourceSets {
-        commonMain {
-            dependencies {
-                implementation(kotlin("stdlib-common"))
-            }
-        }
-        commonTest {
-            dependencies {
-                implementation(kotlin("test-common"))
-                implementation(kotlin("test-annotations-common"))
-            }
-        }
+    val hostOs = System.getProperty("os.name")
+
+    // Create target for the host platform.
+    val hostTarget = when {
+        hostOs == "Mac OS X" -> macosX64("helloworld")
+        hostOs == "Linux" -> linuxX64("helloworld")
+        hostOs.startsWith("Windows") -> mingwX64("helloworld")
+        else -> throw GradleException("Host OS '$hostOs' is not supported in Kotlin/Native $project.")
     }
 
-    linuxX64("linux") {
-        binaries {
-            executable()
-        }
-    }
-
-    mingwX64("windows") {
-        binaries {
-            executable()
-        }
-    }
-    
-    macosX64("macos") {
+    hostTarget.apply {
         binaries {
             executable()
         }
